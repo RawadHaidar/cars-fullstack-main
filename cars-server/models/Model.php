@@ -19,11 +19,15 @@ abstract class Model{
     }
 
     public static function findAll(mysqli $connection){
-        //implement this
+        $sql = sprintf("SELECT * FROM %s", static::$table);
+        $result = $connection->query($sql);
+
+        $records = [];
+        while ($row = $result->fetch_assoc()){
+            $records[] = new static($row);
+        }
+        return $records;
     }
 
 }
-
-
-
 ?>
